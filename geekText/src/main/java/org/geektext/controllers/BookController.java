@@ -18,9 +18,8 @@ public class BookController {
         BookService bookServiceTest;
 
         @GetMapping("/loadBooks")
-        public String loadBooks() {
-            // Loads 3 Book objects to database
-
+        public String loadBooks() { // Loads 3 Book objects to database
+            
             bookServiceTest.addBooks();
             return "Books Loaded to database.";
                 
@@ -31,11 +30,10 @@ public class BookController {
         private BookRepository testRepository;
 
         @GetMapping("/showBooks")
-        public List<Book> showBooks() {
+        public List<Book> showBooks() {  // Return all book objects using REST/GET
 
             return testRepository.findAll();
                 
         }
-
 
     }
