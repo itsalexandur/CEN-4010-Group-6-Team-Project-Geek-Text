@@ -13,27 +13,24 @@ import java.util.List;
 @RestController
 public class UserController {
 
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @GetMapping("/showUsers")
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
-
-
-    @Autowired
+    
+     @Autowired
     UserService userServiceTest;
 
     @GetMapping("/loadUsers")
-    public String loadUsers(){
+    public String loadUsers() { // Loads 3 test User objects to database
         userServiceTest.addUsers();
         return "Users Loaded (Testing)";
     }
 
+   
+    @Autowired
+    private UserRepository userRepository;
 
-
+    @GetMapping("/showUsers")
+    public List<User> getAllUsers() { // Return all users using REST/GET
+        return userRepository.findAll();
+    }
 
 
 }
