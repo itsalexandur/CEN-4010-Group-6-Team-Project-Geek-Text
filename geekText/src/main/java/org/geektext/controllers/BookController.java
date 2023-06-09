@@ -14,25 +14,27 @@ import java.util.List;
 public class BookController {
         // code to handle different endpoints
 
-
-        @Autowired
-        private BookRepository testRepository;
-
-        @GetMapping("/testing/showBooks")
-        public List<Book> getAllTestBooks() {
-
-            return testRepository.findAll();
-        }
-
-
         @Autowired
         BookService bookServiceTest;
 
-        @GetMapping("/testing/loadBooks")
+        @GetMapping("/loadBooks")
         public String loadBooks() {
+            // Loads 3 Book objects to database
 
             bookServiceTest.addBooks();
-            return "Books Loaded (Testing)";
+            return "Books Loaded to database.";
+                
+        }
+
+       
+        @Autowired
+        private BookRepository testRepository;
+
+        @GetMapping("/showBooks")
+        public List<Book> showBooks() {
+
+            return testRepository.findAll();
+                
         }
 
 
