@@ -1,5 +1,6 @@
 package org.geektext.service;
 
+import java.util.List;
 import org.geektext.dao.PersonDao;
 import org.geektext.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,5 +18,9 @@ public class PersonService {
 
     public int addPerson(Person person){
         return personDao.insertPerson(person);
+    }
+
+    public List<Person> getAllPeople(){
+        return personDao.selectAllPeople();
     }
 }

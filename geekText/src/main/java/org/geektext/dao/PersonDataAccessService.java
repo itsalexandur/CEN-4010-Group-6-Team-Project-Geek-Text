@@ -17,4 +17,7 @@ public class PersonDataAccessService implements PersonDao{
         DB.add(new Person(id, person.getFirstName(), person.getLastName()));
                 return 1;
     }
+    public List<Person> selectAllPeople(){
+        return DB;
+    }
 }

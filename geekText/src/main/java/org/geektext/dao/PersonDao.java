@@ -3,6 +3,7 @@ package org.geektext.dao;
 import org.geektext.model.Person;
 
 import java.util.UUID;
+import java.util.List;
 
 public interface PersonDao {
 
@@ -12,4 +13,6 @@ public interface PersonDao {
         UUID id = UUID.randomUUID();
         return insertPerson(id, person);
     }
+
+    List<Person> selectAllPeople();
 }
