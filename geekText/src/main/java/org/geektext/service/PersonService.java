@@ -1,6 +1,9 @@
 package org.geektext.service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
 import org.geektext.dao.PersonDao;
 import org.geektext.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +25,9 @@ public class PersonService {
 
     public List<Person> getAllPeople(){
         return personDao.selectAllPeople();
+    }
+
+    public Optional<Person> getPersonById(UUID id){
+        return personDao.selectPersonById(id);
     }
 }

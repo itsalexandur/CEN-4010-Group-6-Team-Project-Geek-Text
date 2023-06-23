@@ -2,6 +2,7 @@ package org.geektext.dao;
 
 import org.geektext.model.Person;
 
+import java.util.Optional;
 import java.util.UUID;
 import java.util.List;
 
@@ -16,7 +17,9 @@ public interface PersonDao {
 
     List<Person> selectAllPeople();
 
-    int deletePersonByID(UUID id);
+    Optional<Person> selectPersonById(UUID id);
+
+    int deletePersonById(UUID id);
 
     int updatePersonById(UUID  id, Person person);
 }
