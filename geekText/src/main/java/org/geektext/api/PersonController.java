@@ -1,6 +1,8 @@
 package org.geektext.api;
 
 import java.util.List;
+import java.util.UUID;
+
 import org.geektext.model.Person;
 import org.geektext.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +27,11 @@ public class PersonController {
     @GetMapping
     public List<Person> getAllPeople() {
         return personService.getAllPeople();
+    }
+
+    @GetMapping(path = "{id}")
+    public Person getPersonById(@PathVariable("id") UUID id){
+        return personService.getPersonById(id)
+                .orElse(null);
     }
     }
