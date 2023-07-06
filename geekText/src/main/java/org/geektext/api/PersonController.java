@@ -8,7 +8,7 @@ import org.geektext.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("api/v1/person")
+@RequestMapping("api/v1")
 @RestController
 public class PersonController {
 
@@ -19,11 +19,20 @@ public class PersonController {
         this.personService = personService;
     }
 
-    @PostMapping
+    @PostMapping("person")
+    public void addPerson(@RequestBody Person person){
+        try {
+            personService.addPerson(person);
+        } catch (Exception e){
+            System.out.println(e);
+        }
+    }
+
+  /*  @PostMapping("person/")
     public void addPerson(@RequestBody Person person){
         personService.addPerson(person);
     }
-
+   */
     @GetMapping
     public List<Person> getAllPeople() {
         return personService.getAllPeople();
