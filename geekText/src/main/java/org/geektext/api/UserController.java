@@ -1,8 +1,9 @@
 package org.geektext.api;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
+import org.geektext.dao.UserDao;
 import org.geektext.model.User;
 import org.geektext.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 @RestController
 public class UserController {
+
+    @Autowired
+    UserDao userRepository;
 
     private final UserService userService;
 
@@ -31,9 +35,26 @@ public class UserController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @GetMapping
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
+    @GetMapping("/user")
+    public ResponseEntity<List<User>> getAllUsers(@RequestParam(required = false) String user_id) {
+        try{
+            List<User> users = new ArrayList<>();
+
+
+            if(user_id == null)
+                userRepository.selectAllUsers().forEach(users::add);
+            else
+                userRepository.findById(user_id).forEach(users::add);
+             if (users.isEmpty()) {
+                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+             }
+
+            return new ResponseEntity<>(users, HttpStatus.OK);
+
+        }catch (Exception e){
+            System.out.println(e);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping(path = "{id}")

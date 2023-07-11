@@ -9,18 +9,20 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository("fakeDao")
+@Repository
 public class UserDataAccessService implements UserDao {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+
     public String insertUser(String id, User user){
-                return String.valueOf(jdbcTemplate.update("INSERT INTO user (user_id, username, user_password, full_name, email_address, home_address) VALUES(?,?,?,?,?,?)",
-                        new Object[]{user.getId(), user.getUsername(), user.getPassword(), user.getFullName(), user.getEmail(), user.getAddress()}));
+                return String.valueOf(jdbcTemplate.update("INSERT INTO user (user_id, username, password, name) VALUES(?,?,?,?)",
+                        new Object[]{user.getId(), user.getUsername(), user.getPassword(), user.getName()}));
     }
     public List<User> selectAllUsers(){
-        return (List<User>) jdbcTemplate;
+        return jdbcTemplate.query("SELECT * from user",
+                BeanPropertyRowMapper.newInstance(User.class));
     }
 
     @Override
@@ -34,6 +36,12 @@ public class UserDataAccessService implements UserDao {
         return null;
     }
 
+    @Override
+    public List<User> findById(String id) {
+        String s = "SELECT * from user WHERE user_id LIKE '%" + id + "%'";
+
+        return jdbcTemplate.query(s, BeanPropertyRowMapper.newInstance(User.class));
+    }
 
 
     @Override

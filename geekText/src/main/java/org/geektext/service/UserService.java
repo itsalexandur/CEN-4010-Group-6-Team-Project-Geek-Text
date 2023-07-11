@@ -20,10 +20,6 @@ public class UserService {
         return userDao.insertUser(user);
     }
 
-    public List<User> getAllUsers(){
-        return userDao.selectAllUsers();
-    }
-
     public User getUserById(String id){
         return userDao.selectUserById(id);
     }

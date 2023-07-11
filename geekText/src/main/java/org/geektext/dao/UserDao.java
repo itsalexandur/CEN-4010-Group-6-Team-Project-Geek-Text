@@ -18,6 +18,8 @@ public interface UserDao {
 
      User selectUserById(String id);
 
+    List<User> findById(String id);
+
     int deleteUserById(String id);
 
     int updateUserById(String  id);
