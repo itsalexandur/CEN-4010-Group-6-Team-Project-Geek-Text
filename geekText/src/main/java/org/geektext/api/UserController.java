@@ -38,16 +38,17 @@ public class UserController {
     @GetMapping("/user")
     public ResponseEntity<List<User>> getAllUsers(@RequestParam(required = false) String user_id) {
         try{
+
             List<User> users = new ArrayList<>();
 
+            if (user_id != null) {
+                users.addAll(userRepository.findById(user_id));
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
 
-            if(user_id == null)
-                userRepository.selectAllUsers().forEach(users::add);
-            else
-                userRepository.findById(user_id).forEach(users::add);
-             if (users.isEmpty()) {
-                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-             }
+            users.addAll(userRepository.selectAllUsers());
+
+            if (users.isEmpty()) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
             return new ResponseEntity<>(users, HttpStatus.OK);
 
@@ -58,7 +59,7 @@ public class UserController {
     }
 
     @GetMapping(path = "{id}")
-    public User getUserById(@PathVariable("id") String id){
+   public User getUserById(@PathVariable("id") String id){
         return userService.getUserById(id);
     }
     }

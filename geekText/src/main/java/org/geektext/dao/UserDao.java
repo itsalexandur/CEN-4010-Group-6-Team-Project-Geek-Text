@@ -11,12 +11,14 @@ public interface UserDao {
 
     default String insertUser(User user){
         String id = String.valueOf(UUID.randomUUID()) ;
+        System.out.println("INSERT USER: " + insertUser(id, user));
+
         return insertUser(id, user);
     }
 
     List<User> selectAllUsers();
 
-     User selectUserById(String id);
+    User selectUserById(String id);
 
     List<User> findById(String id);
 

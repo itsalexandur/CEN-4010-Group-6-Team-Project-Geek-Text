@@ -1,7 +1,5 @@
 package org.geektext.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class User {
 
     public User(){}
@@ -12,7 +10,7 @@ public class User {
     private String name;
 
 
-    public User(String id, String name, String username, String password)
+    public User(String id, String username, String password, String name)
     {
 
         this.id = id;

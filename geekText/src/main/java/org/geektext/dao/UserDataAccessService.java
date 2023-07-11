@@ -17,28 +17,32 @@ public class UserDataAccessService implements UserDao {
 
 
     public String insertUser(String id, User user){
-                return String.valueOf(jdbcTemplate.update("INSERT INTO user (user_id, username, password, name) VALUES(?,?,?,?)",
-                        new Object[]{user.getId(), user.getUsername(), user.getPassword(), user.getName()}));
+                return String.valueOf(jdbcTemplate.update("INSERT INTO user (user_id, username, password, name) VALUES (?,?,?,?)",
+                        user.getId(), user.getUsername(), user.getPassword(), user.getName()));
     }
     public List<User> selectAllUsers(){
-        return jdbcTemplate.query("SELECT * from user",
-                BeanPropertyRowMapper.newInstance(User.class));
+
+        return jdbcTemplate.query("SELECT * FROM user",(rs, rosNum) ->
+                new User(rs.getString("user_id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("name"))
+        );
     }
 
     @Override
     public User selectUserById(String id) {
         try{
-            User user = jdbcTemplate.queryForObject("SELECT * FROM user WHERE user_id=?",
-            BeanPropertyRowMapper.newInstance(User.class),id);
+            return jdbcTemplate.queryForObject("SELECT * FROM user WHERE user_id = ?",
+            BeanPropertyRowMapper.newInstance(User.class), id);
         } catch(IncorrectResultSizeDataAccessException e) {
             return null;
         }
-        return null;
     }
 
     @Override
     public List<User> findById(String id) {
-        String s = "SELECT * from user WHERE user_id LIKE '%" + id + "%'";
+        String s = "SELECT * FROM user WHERE user_id LIKE '%" + id + "%'";
 
         return jdbcTemplate.query(s, BeanPropertyRowMapper.newInstance(User.class));
     }
@@ -51,6 +55,6 @@ public class UserDataAccessService implements UserDao {
 
     @Override
     public int updateUserById(String id) {
-        return jdbcTemplate.update("UPDATE from user WHERE user_id=?", id);
+        return jdbcTemplate.update("UPDATE FROM user WHERE user_id=?", id);
     }
 }

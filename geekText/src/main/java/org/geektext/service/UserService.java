@@ -1,6 +1,5 @@
 package org.geektext.service;
 
-import java.util.List;
 
 import org.geektext.dao.UserDao;
 import org.geektext.model.User;
