@@ -6,13 +6,12 @@ import java.util.List;
 
 public interface UserDao {
 
-    int insertUser(User user);
+    void insertUser(User user);
 
     List<User> selectAllUsers();
 
     User selectUserByUsername(String username);
 
-    List<User> findById(int id);
 
     int deleteUserById(int id);
 

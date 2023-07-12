@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.geektext.dao.UserDao;
+import org.geektext.dao.UserRepository;
 import org.geektext.model.User;
-import org.geektext.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,17 +18,15 @@ public class UserController {
     @Autowired
     UserDao userRepository;
 
-    private final UserService userService;
-
     @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public UserController(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @PostMapping("/user")
     public ResponseEntity<String> addUser(@RequestBody User user){
         try {
-            userService.addUser(new User(user.getId(), user.getUsername(), user.getPassword(), user.getName()));
+            userRepository.insertUser(new User(user.getId(), user.getAddress(), user.getFullname(), user.getPassword(), user.getUsername()));
             return new ResponseEntity<>("User was created successfully", HttpStatus.CREATED);
         } catch (Exception e){
             System.out.println(e);
@@ -68,4 +66,6 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    //public updateUser
     }

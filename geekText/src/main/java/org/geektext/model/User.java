@@ -2,33 +2,37 @@ package org.geektext.model;
 
 public class User {
 
-    public User(){}
 
-    private int id;
-    private String username;
-    private String password;
-    private String name;
+    private final int id;
+    private final String address;
+    private final String fullname;
+    private final String password;
+    private final String username;
 
 
-    public User(int id, String username, String password, String name)
+
+    public User(int id, String address, String fullname, String password, String username)
     {
-
         this.id = id;
-        this.username = username;
+        this.address = address;
+        this.fullname = fullname;
         this.password = password;
-        this.name = name;
+        this.username = username;
     }
 
     public int getId() {
         return id;
     }
 
+    public String getAddress(){
+        return address;
+    }
     public String getPassword() {
         return password;
     }
 
-    public String getName() {
-        return name;
+    public String getFullname() {
+        return fullname;
     }
 
     public String getUsername() {
