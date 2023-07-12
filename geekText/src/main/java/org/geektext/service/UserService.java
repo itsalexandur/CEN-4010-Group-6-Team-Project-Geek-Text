@@ -6,6 +6,8 @@ import org.geektext.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
     private final UserDao userDao;
@@ -15,11 +17,14 @@ public class UserService {
         this.userDao = userDao;
     }
 
-    public String addUser(User user){
-        return userDao.insertUser(user);
+    public List<User> selectAllUsers(User user){
+        return userDao.selectAllUsers();
+    }
+    public int addUser(User user){
+        return userDao.insertUser( user);
     }
 
-    public User getUserById(String id){
-        return userDao.selectUserById(id);
+    public User getUserByUsername(String username){
+        return userDao.selectUserByUsername(username);
     }
 }

@@ -16,32 +16,35 @@ public class UserDataAccessService implements UserDao {
     private JdbcTemplate jdbcTemplate;
 
 
-    public String insertUser(String id, User user){
-                return String.valueOf(jdbcTemplate.update("INSERT INTO user (user_id, username, password, name) VALUES (?,?,?,?)",
+    public int insertUser(User user){
+                return (jdbcTemplate.update("INSERT INTO user (user_id, username, password, name) VALUES (?,?,?,?)",
                         user.getId(), user.getUsername(), user.getPassword(), user.getName()));
     }
     public List<User> selectAllUsers(){
 
         return jdbcTemplate.query("SELECT * FROM user",(rs, rosNum) ->
-                new User(rs.getString("user_id"),
+                new User(rs.getInt("user_id"),
                         rs.getString("username"),
                         rs.getString("password"),
-                        rs.getString("name"))
-        );
+                        rs.getString("name")));
     }
 
     @Override
-    public User selectUserById(String id) {
+    public User selectUserByUsername(String username) {
         try{
-            return jdbcTemplate.queryForObject("SELECT * FROM user WHERE user_id = ?",
-            BeanPropertyRowMapper.newInstance(User.class), id);
+            return jdbcTemplate.queryForObject("SELECT * FROM user",(rs, rosNum) ->
+                    new User(rs.getInt("user_id"),
+                            rs.getString("username"),
+                            rs.getString("password"),
+                            rs.getString("name")));
+//            BeanPropertyRowMapper.newInstance(User.class), username);
         } catch(IncorrectResultSizeDataAccessException e) {
             return null;
         }
     }
 
     @Override
-    public List<User> findById(String id) {
+    public List<User> findById(int id) {
         String s = "SELECT * FROM user WHERE user_id LIKE '%" + id + "%'";
 
         return jdbcTemplate.query(s, BeanPropertyRowMapper.newInstance(User.class));
@@ -49,12 +52,13 @@ public class UserDataAccessService implements UserDao {
 
 
     @Override
-    public int deleteUserById(String id) {
-        return (jdbcTemplate.update("DELETE FROM user WHERE user_id=?", id));
+    public int deleteUserById(int id) {
+        return jdbcTemplate.update("DELETE FROM user WHERE user_id=?", id);
     }
 
     @Override
-    public int updateUserById(String id) {
-        return jdbcTemplate.update("UPDATE FROM user WHERE user_id=?", id);
+    public int updateUser(User user) {
+        return jdbcTemplate.update("UPDATE user SET user_id=?, password=?, name=? WHERE username=?",
+                user.getId(), user.getPassword(), user.getName(), user.getUsername());
     }
 }

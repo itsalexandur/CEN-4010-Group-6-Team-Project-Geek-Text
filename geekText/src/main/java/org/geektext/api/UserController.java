@@ -28,7 +28,7 @@ public class UserController {
     @PostMapping("/user")
     public ResponseEntity<String> addUser(@RequestBody User user){
         try {
-            userService.addUser(user);
+            userService.addUser(new User(user.getId(), user.getUsername(), user.getPassword(), user.getName()));
             return new ResponseEntity<>("User was created successfully", HttpStatus.CREATED);
         } catch (Exception e){
             System.out.println(e);
@@ -36,13 +36,13 @@ public class UserController {
         }
     }
     @GetMapping("/user")
-    public ResponseEntity<List<User>> getAllUsers(@RequestParam(required = false) String user_id) {
+    public ResponseEntity<List<User>> getAllUsers(@RequestParam(required = false) String username) {
         try{
 
             List<User> users = new ArrayList<>();
 
-            if (user_id != null) {
-                users.addAll(userRepository.findById(user_id));
+            if (username != null) {
+                users.addAll(userRepository.selectAllUsers());
                 return new ResponseEntity<>(HttpStatus.OK);
             }
 
@@ -50,16 +50,22 @@ public class UserController {
 
             if (users.isEmpty()) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
-            return new ResponseEntity<>(users, HttpStatus.OK);
+           return new ResponseEntity<>(users, HttpStatus.OK);
 
         }catch (Exception e){
             System.out.println(e);
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+      }
+   }
 
-    @GetMapping(path = "{id}")
-   public User getUserById(@PathVariable("id") String id){
-        return userService.getUserById(id);
+    @GetMapping(path = "{username}")
+   public ResponseEntity getUserByUsername(@PathVariable("username") String username){
+        User user = userRepository.selectUserByUsername(username);
+
+        if (user != null){
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
     }

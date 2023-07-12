@@ -4,13 +4,13 @@ public class User {
 
     public User(){}
 
-    private String id;
+    private int id;
     private String username;
     private String password;
     private String name;
 
 
-    public User(String id, String username, String password, String name)
+    public User(int id, String username, String password, String name)
     {
 
         this.id = id;
@@ -19,7 +19,7 @@ public class User {
         this.name = name;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
