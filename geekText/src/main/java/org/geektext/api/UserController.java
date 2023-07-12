@@ -58,7 +58,7 @@ public class UserController {
       }
    }
 
-    @GetMapping(path = "{username}")
+    @GetMapping("/{username}")
    public ResponseEntity getUserByUsername(@PathVariable("username") String username){
         User user = userRepository.selectUserByUsername(username);
 

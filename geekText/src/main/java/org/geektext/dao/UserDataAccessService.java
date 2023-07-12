@@ -32,12 +32,12 @@ public class UserDataAccessService implements UserDao {
     @Override
     public User selectUserByUsername(String username) {
         try{
-            return jdbcTemplate.queryForObject("SELECT * FROM user",(rs, rosNum) ->
+            String str = "SELECT * FROM user WHERE username = ?";
+            return jdbcTemplate.queryForObject(str, new Object[]{username},(rs, rosNum) ->
                     new User(rs.getInt("user_id"),
                             rs.getString("username"),
                             rs.getString("password"),
                             rs.getString("name")));
-//            BeanPropertyRowMapper.newInstance(User.class), username);
         } catch(IncorrectResultSizeDataAccessException e) {
             return null;
         }
