@@ -10,8 +10,7 @@ import java.util.List;
 
 @Repository
 public class UserRepository implements UserDao {
-    public UserRepository() {
-    }
+    public UserRepository() {}
 
 
     @Autowired
@@ -47,14 +46,6 @@ public class UserRepository implements UserDao {
         }
     }
 
-//    @Override
-//    public List<User> findById(int id) {
-//        String s = "SELECT * FROM users WHERE userID LIKE '%" + id + "%'";
-//
-//        return jdbcTemplate.query(s, BeanPropertyRowMapper.newInstance(User.class));
-//    }
-
-
     @Override
     public int deleteUserById(int id) {
         return jdbcTemplate.update("DELETE FROM users WHERE userID=?", id);
@@ -62,7 +53,7 @@ public class UserRepository implements UserDao {
 
     @Override
     public int updateUser(User user) {
-        return jdbcTemplate.update("UPDATE users SET userID=?, address=?, fulname=?, password=? WHERE username=?",
+        return jdbcTemplate.update("UPDATE users SET userID=?, address=?, fullname=?, password=? WHERE username=?",
                 user.getId(), user.getAddress(), user.getFullname(), user.getPassword(), user.getUsername());
     }
 }

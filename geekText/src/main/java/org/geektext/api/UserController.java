@@ -16,35 +16,35 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     @Autowired
-    UserDao userRepository;
+    UserDao userRepo;
 
     @Autowired
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserController(UserRepository userRepo) {
+        this.userRepo = userRepo;
     }
 
-    @PostMapping("/user")
+    @PostMapping("/adduser")
     public ResponseEntity<String> addUser(@RequestBody User user){
         try {
-            userRepository.insertUser(new User(user.getId(), user.getAddress(), user.getFullname(), user.getPassword(), user.getUsername()));
+            userRepo.insertUser(new User(user.getId(), user.getAddress(), user.getFullname(), user.getPassword(), user.getUsername()));
             return new ResponseEntity<>("User was created successfully", HttpStatus.CREATED);
         } catch (Exception e){
             System.out.println(e);
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @GetMapping("/user")
+    @GetMapping("/getusers")
     public ResponseEntity<List<User>> getAllUsers(@RequestParam(required = false) String username) {
         try{
 
             List<User> users = new ArrayList<>();
 
             if (username != null) {
-                users.addAll(userRepository.selectAllUsers());
+                users.addAll(userRepo.selectAllUsers());
                 return new ResponseEntity<>(HttpStatus.OK);
             }
 
-            users.addAll(userRepository.selectAllUsers());
+            users.addAll(userRepo.selectAllUsers());
 
             if (users.isEmpty()) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
@@ -58,7 +58,7 @@ public class UserController {
 
     @GetMapping("/{username}")
    public ResponseEntity getUserByUsername(@PathVariable("username") String username){
-        User user = userRepository.selectUserByUsername(username);
+        User user = userRepo.selectUserByUsername(username);
 
         if (user != null){
             return new ResponseEntity<>(user, HttpStatus.OK);
@@ -67,5 +67,4 @@ public class UserController {
         }
     }
 
-    //public updateUser
     }
