@@ -5,5 +5,5 @@ Contributors:
 - Isaac Del Castillo
 - Alexander Delgado
 - Andy Delgado
-- Taylor Demaro
+- Taylor DeMarzo
 - Andy Diaz
