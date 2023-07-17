@@ -67,4 +67,17 @@ public class UserController {
         }
     }
 
+    @DeleteMapping("/delete{id}")
+    public ResponseEntity deleteUserById(@PathVariable("id")int id){
+        try{
+            userRepo.deleteUserById(id);
+            return new ResponseEntity<>("User was deleted successfully", HttpStatus.OK);
+
+        }catch (Exception e) {
+            System.out.println(e);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+
+    }
     }

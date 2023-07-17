@@ -6,13 +6,14 @@ import org.geektext.model.CreditCard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
+@RequestMapping("/api")
+@RestController
 public class CreditCardController {
 
-    @Autowired
-    CreditCardDao creditCardRepo;
+   @Autowired
+   CreditCardDao creditCardRepo;
 
     @Autowired
     public CreditCardController(CreditCardRepository creditCardRepository){
