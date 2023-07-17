@@ -14,5 +14,4 @@ public class GeekTextApplication  {
 	public static void main(String[] args) {SpringApplication.run(GeekTextApplication.class, args);}
 
 
-
 }
