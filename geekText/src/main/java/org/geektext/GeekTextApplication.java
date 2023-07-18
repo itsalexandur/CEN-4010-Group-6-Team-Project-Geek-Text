@@ -1,16 +1,24 @@
 package org.geektext;
 
+
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Configuration;
 
+
+@Configuration
 @SpringBootApplication
-public class GeekTextApplication {
+public class GeekTextApplication  {
 
+	public static void main(String[] args) {SpringApplication.run(GeekTextApplication.class, args);}
+
+// <<<<<<< BookBrowsingandSorting_Sprint4
 	public static void main(String[] args) {
-		System.out.print("BBAs");
-		SpringApplication.run(GeekTextApplication.class, args)
-		;
+		SpringApplication.run(GeekTextApplication.class, args);
 	}
+=======
+>>>>>>> main
 
 
 }

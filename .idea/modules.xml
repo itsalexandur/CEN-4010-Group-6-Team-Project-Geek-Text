@@ -3,7 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/CEN-4010-Group-6-Team-Project-Geek-Text.iml" filepath="$PROJECT_DIR$/.idea/CEN-4010-Group-6-Team-Project-Geek-Text.iml" />
+<!-- <<<<<<< BookBrowsingandSorting_Sprint4 -->
       <module fileurl="file://$PROJECT_DIR$/geekText/geekText.iml" filepath="$PROJECT_DIR$/geekText/geekText.iml" />
+=======
+<!-- >>>>>>> main -->
     </modules>
   </component>
 </project>
