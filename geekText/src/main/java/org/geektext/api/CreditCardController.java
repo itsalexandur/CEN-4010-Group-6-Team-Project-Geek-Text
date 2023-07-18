@@ -20,8 +20,8 @@ public class CreditCardController {
         this.creditCardRepo = creditCardRepository;
     }
 
-    @PostMapping("/addcreditcard")
-    public ResponseEntity<String> addCreditCard(@RequestBody CreditCard card){
+    @PostMapping("/{username}/addcreditard")
+    public ResponseEntity<String> addCreditCard(@PathVariable("username") @RequestBody CreditCard card){
         try{
             creditCardRepo.insertCard(new CreditCard(card.getUsername(), card.getCardNumber(), card.getName(), card.getCvv(), card.getExpDate()));
             return new ResponseEntity<>("CreditCard was created successfully", HttpStatus.CREATED);
