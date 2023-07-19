@@ -86,7 +86,15 @@ public class UserController {
         try {
             User user = userRepo.selectUserByUsername(username);
             if (user != null) {
-                user.setAddress(updatedUser.getAddress());
+                if (updatedUser.getAddress() != null) {
+                    user.setAddress(updatedUser.getAddress());
+                }
+                if (updatedUser.getFullname() != null) {
+                    user.setFullname(updatedUser.getFullname());
+                }
+                if (updatedUser.getPassword() != null) {
+                    user.setPassword(updatedUser.getPassword());
+                }
 
                 int rowsUpdated = userRepo.updateUser(username, user);
                 if (rowsUpdated > 0) {
