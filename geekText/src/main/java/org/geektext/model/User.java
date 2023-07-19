@@ -3,11 +3,12 @@ package org.geektext.model;
 public class User {
 
 
-    private final int id;
-    private final String address;
-    private final String fullname;
-    private final String password;
-    private final String username;
+
+    private int id;
+    private  String address;
+    private  String fullname;
+    private  String password;
+    private  String username;
 
 
 
@@ -38,5 +39,17 @@ public class User {
     public String getUsername() {
         return username;
     }
+    public void setAddress(String address){
+        this.address= address;
+    }
+    public void setPassword(String password){
+        this.password= password;
+    }
+    public void setFullname(String fullname){
+        this.fullname= fullname;
+    }
+
+
+
 
 }

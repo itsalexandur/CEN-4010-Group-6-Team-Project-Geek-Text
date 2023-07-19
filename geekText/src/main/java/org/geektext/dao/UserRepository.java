@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -51,9 +52,11 @@ public class UserRepository implements UserDao {
         return jdbcTemplate.update("DELETE FROM users WHERE userID=?", id);
     }
 
+
+    @Transactional
     @Override
-    public int updateUser(User user) {
-        return jdbcTemplate.update("UPDATE users SET userID=?, address=?, fullname=?, password=? WHERE username=?",
-                user.getId(), user.getAddress(), user.getFullname(), user.getPassword(), user.getUsername());
+    public int updateUser(String username, User updatedUser) {
+        return jdbcTemplate.update("UPDATE users SET address=?, fullname=?, password=? WHERE username=?",
+                updatedUser.getAddress(), updatedUser.getFullname(), updatedUser.getPassword(), username);
     }
 }

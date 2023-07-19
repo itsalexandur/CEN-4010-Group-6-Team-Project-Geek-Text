@@ -1,32 +1,28 @@
 package org.geektext.model;
 
+import jakarta.persistence.OneToOne;
+
 public class CreditCard {
 
-
-
-    private final String username;
     private final int cardNumber;
-    private final String name;
     private final int cvv;
     private final int expDate;
 
-    public CreditCard(String username, int cardNumber, String name, int cvv, int expDate) {
-        this.username = username;
+    @OneToOne
+    private User user;
+
+    public CreditCard(int cardNumber, int cvv, int expDate) {
         this.cardNumber = cardNumber;
-        this.name = name;
         this.cvv = cvv;
         this.expDate = expDate;
     }
-    public String getUsername() {
-        return username;
+
+    public void setUser(User user){
+        this.user = user;
     }
 
     public int getCardNumber() {
         return cardNumber;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public int getCvv() {
