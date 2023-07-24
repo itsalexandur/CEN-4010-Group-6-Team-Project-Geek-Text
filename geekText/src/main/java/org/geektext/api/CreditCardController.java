@@ -29,12 +29,14 @@ public class CreditCardController {
     public ResponseEntity<String> insertCreditCard(@PathVariable("username") String username, @RequestBody CreditCard card){
         try{
 
-            User users = userRepository.selectUserByUsername(username);
-            card.setUser(users);
-            if (users == null){
+            User user = userRepository.selectUserByUsername(username);
+
+            if (user == null){
                 return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
             }
-            creditCardRepo.insertCard(new CreditCard(card.getCardNumber(), card.getCvv(), card.getExpDate()), users);
+
+            card.setUser(user);
+            creditCardRepo.insertCard(new CreditCard(card.getCardNumber(), card.getCvv(), card.getExpDate(), user));
             return ResponseEntity.status(HttpStatus.CREATED).body("CreditCard was created successfully");
         }catch (Exception e){
             System.out.println(e);

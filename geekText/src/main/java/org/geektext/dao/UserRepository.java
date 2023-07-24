@@ -33,6 +33,11 @@ public class UserRepository implements UserDao {
     }
 
     @Override
+    public int getUserIdByUsername(String username) {
+        String str = "SELECT userID FROM users where username = ?";
+        return jdbcTemplate.queryForObject(str, new Object[]{username}, Integer.class);
+    }
+    @Override
     public User selectUserByUsername(String username) {
         try{
             String str = "SELECT * FROM users WHERE username = ?";

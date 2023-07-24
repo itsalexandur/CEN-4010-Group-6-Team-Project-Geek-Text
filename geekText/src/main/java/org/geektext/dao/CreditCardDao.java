@@ -5,7 +5,7 @@ import org.geektext.model.User;
 
 public interface CreditCardDao {
 
-//    void insertCard(CreditCard card);
+    void insertCard(CreditCard card);
 
-    void insertCard(CreditCard card, User user);
+    void insertCard(CreditCard card, int userId);
 }

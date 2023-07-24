@@ -4,7 +4,6 @@ package org.geektext.dao;
 import org.geektext.model.CreditCard;
 import org.geektext.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -12,23 +11,24 @@ import org.springframework.stereotype.Repository;
 public class CreditCardRepository implements CreditCardDao{
 
     @Autowired
-    public CreditCardRepository(){}
+    public CreditCardRepository(JdbcTemplate jdbcTemplate){
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Override
     public void insertCard(CreditCard card) {
-        jdbcTemplate.update("INSERT INTO creditcard(cardNumber, cvv, expDate) VALUES(?,?,?)",
-                card.getCardNumber(), card.getCvv(), card.getExpDate());
+        jdbcTemplate.update("INSERT INTO creditcard(cardNumber, fullname, cvv, expDate, username, userID) VALUES(?,?,?,?,?,?)",
+                card.getCardNumber(), card.getUser().getFullname(), card.getCvv(), card.getExpDate(), card.getUser().getUsername(), card.getUser().getId());
 
     }
 
     @Override
-    public void insertCard(CreditCard card, User user) {
-        jdbcTemplate.update("INSERT INTO creditcard(fullname, username)VALUES(?,?)",
-                user.getFullname(), user.getUsername());
-    }
+    public void insertCard(CreditCard card, int userId) {
 
+    }
 
 
 }

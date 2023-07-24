@@ -10,6 +10,8 @@ public interface UserDao {
 
     List<User> selectAllUsers();
 
+    int getUserIdByUsername(String username);
+
     User selectUserByUsername(String username);
 
 

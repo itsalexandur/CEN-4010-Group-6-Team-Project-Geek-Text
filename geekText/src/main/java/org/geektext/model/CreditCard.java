@@ -11,12 +11,16 @@ public class CreditCard {
     @OneToOne
     private User user;
 
-    public CreditCard(int cardNumber, int cvv, int expDate) {
+    public CreditCard(int cardNumber, int cvv, int expDate, User user) {
+        this.user = user;
         this.cardNumber = cardNumber;
         this.cvv = cvv;
         this.expDate = expDate;
     }
 
+    public User getUser(){
+        return user;
+    }
     public void setUser(User user){
         this.user = user;
     }
@@ -32,4 +36,5 @@ public class CreditCard {
     public int getExpDate() {
         return expDate;
     }
+
 }
