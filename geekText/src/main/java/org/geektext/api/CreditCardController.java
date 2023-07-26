@@ -2,7 +2,9 @@ package org.geektext.api;
 
 import org.geektext.dao.CreditCardDao;
 import org.geektext.dao.CreditCardRepository;
+import org.geektext.dao.UserRepository;
 import org.geektext.model.CreditCard;
+import org.geektext.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,20 +16,31 @@ public class CreditCardController {
 
    @Autowired
    CreditCardDao creditCardRepo;
+   @Autowired
+    UserRepository userRepository;
 
     @Autowired
-    public CreditCardController(CreditCardRepository creditCardRepository){
+    public CreditCardController(CreditCardRepository creditCardRepository, UserRepository userRepository){
+        this.userRepository = userRepository;
         this.creditCardRepo = creditCardRepository;
     }
 
-    @PostMapping("/createcreditcard")
-    public ResponseEntity<String> addCreditCard(@RequestBody CreditCard card){
+    @PostMapping("/{username}/addcreditcard")
+    public ResponseEntity<String> insertCreditCard(@PathVariable("username") String username, @RequestBody CreditCard card){
         try{
-            creditCardRepo.insertCard(new CreditCard(card.getCardNumber(), card.getName(), card.getCvv(), card.getCvv()));
-            return new ResponseEntity<>("CreditCard was created successfully", HttpStatus.CREATED);
+
+            User user = userRepository.selectUserByUsername(username);
+
+            if (user == null){
+                return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+            }
+
+            card.setUser(user);
+            creditCardRepo.insertCard(new CreditCard(card.getCardNumber(), card.getCvv(), card.getExpDate(), user));
+            return ResponseEntity.status(HttpStatus.CREATED).body("CreditCard was created successfully");
         }catch (Exception e){
             System.out.println(e);
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 }

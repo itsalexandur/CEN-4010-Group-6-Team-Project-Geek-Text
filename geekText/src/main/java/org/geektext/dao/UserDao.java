@@ -10,10 +10,12 @@ public interface UserDao {
 
     List<User> selectAllUsers();
 
+    int getUserIdByUsername(String username);
+
     User selectUserByUsername(String username);
 
 
     int deleteUserById(int id);
 
-    int updateUser(User user);
+    int updateUser(String username, User user);
 }

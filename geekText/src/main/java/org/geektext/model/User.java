@@ -8,11 +8,6 @@ public class User {
 
     public User(){}
 
-    public User(String username, String password) {
-        this.setUserName(username);
-        this.setPassword(password);
-    }
-
     public User(String username, String password,String firstName, String lastName, String address) {
 
         this.setUserName(username);
@@ -90,6 +85,18 @@ public class User {
     public String getAddress() {
         return address;
     }
+    public void setAddress(String address){
+        this.address= address;
+    }
+    public void setPassword(String password){
+        this.password= password;
+    }
+    public void setFullname(String fullname){
+        this.fullname= fullname;
+    }
+
+
+
 
     public void setAddress(String address) {
         this.address = address;
