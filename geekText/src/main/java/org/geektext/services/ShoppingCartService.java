@@ -27,14 +27,22 @@ public class ShoppingCartService {
 
 
 
-    public void addToCart(long bookID, long userID) {
+    public int addToCart(long bookID, long userID) {
         // Searches for book and user then creates new
         // "SavedBook" item to save to cart table.
+        // Returns 0 if Book is not found
+
+
 
         Book addedBook = bookRepo.findBookById(bookID);
+        if (addedBook == null) {
+            return 0;
+        }
+
         User userTarget = userRepo.findUserById(userID);
         SavedBook newBook = new SavedBook(addedBook,userTarget);
         savedBookRepo.save(newBook);
+        return 1;
 
     }
 
@@ -61,16 +69,22 @@ public class ShoppingCartService {
     public List<SavedBook> ShowCartItems(long userID) {
         // Returns all books in users shopping cart
 
+
         List<SavedBook> savedBooks =  savedBookRepo.findSavedBooksByUserID(userID);
 
         return savedBooks;
     }
 
-    public void removeFromCart( long bookID,long userID){
+    public int removeFromCart( long bookID,long userID){
         // Removes specified book from cart
+        // Returns 1 if successful, else returns 0
 
         List<SavedBook> bookList = savedBookRepo.findSavedBooksByUserID(userID);
         SavedBook targetBook2;
+
+        if (bookList.size() < 1) {
+            return 0;
+        }
 
         for (int i = 0; i < bookList.size(); i++) {
 
@@ -79,9 +93,9 @@ public class ShoppingCartService {
             if (targetBook2.getBookID() == bookID) {
 
                 savedBookRepo.delete(targetBook2);
-
             }
         }
+        return 1;
     }
 
     public void clearCart(long userID) {

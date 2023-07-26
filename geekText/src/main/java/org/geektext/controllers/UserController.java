@@ -32,7 +32,7 @@ public class UserController {
 
     @GetMapping("/showUsers")
     public List<User> getAllUsers() {
-        // *Testing* - Returns list of saved users
+        // Returns list of saved users
 
         return userRepository.findAll();
     }

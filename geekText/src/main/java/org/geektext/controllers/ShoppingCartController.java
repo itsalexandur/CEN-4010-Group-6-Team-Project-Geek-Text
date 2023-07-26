@@ -22,9 +22,12 @@ public class ShoppingCartController {
     public String addBookToCart(@PathVariable("bookID") long bookID, @PathVariable("userID") long userID) {
         // Adds book to user's cart by bookID
 
-        cartService.addToCart(bookID,userID);
-        return "[@PostMapping] Book ID: " + bookID + " added to User ID: " + userID + " shopping cart.";
-
+       if (cartService.addToCart(bookID,userID) < 1) {
+           return "Error - Invalid BookID";
+       }
+       else {
+           return "[@PostMapping] Book ID: " + bookID + " added to User ID: " + userID + " shopping cart.";
+       }
     }
 
 
@@ -49,8 +52,13 @@ public class ShoppingCartController {
     public String RemoveBook(@PathVariable("userID") long userID, @PathVariable("bookID") long bookID) {
         // Remove book from user's cart using bookID
 
-        cartService.removeFromCart(bookID,userID);
-        return "[@DeleteMapping] Book ID: " + bookID + " removed from User ID: " + userID + " shopping cart.";
+
+        if (cartService.removeFromCart(bookID,userID) > 0) {
+            return "[@DeleteMapping] Book ID: " + bookID + " removed from User ID: " + userID + " shopping cart.";
+        }
+        else {
+            return "Error - [BookID: " + bookID + "] not found in [UserID: " + userID + "] cart.";
+        }
     }
 
 

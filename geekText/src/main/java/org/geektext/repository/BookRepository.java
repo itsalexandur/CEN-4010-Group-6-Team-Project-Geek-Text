@@ -13,7 +13,6 @@ public interface BookRepository extends JpaRepositoryImplementation<Book, Long> 
      Book findBookById(long bookID);
 
 
-
 }
 
 
