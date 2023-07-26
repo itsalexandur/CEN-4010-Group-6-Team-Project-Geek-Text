@@ -1,16 +1,14 @@
-package org.geektext.service;
+package org.geektext.repository;
 
 import org.geektext.model.User;
 
 import java.util.List;
 
-public interface UserDao {
+public interface UserRepository {
 
     void insertUser(User user);
 
     List<User> selectAllUsers();
-
-    int getUserIdByUsername(String username);
 
     User selectUserByUsername(String username);
 

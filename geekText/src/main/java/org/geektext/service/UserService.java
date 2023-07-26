@@ -1,6 +1,7 @@
 package org.geektext.service;
 
 import org.geektext.model.User;
+import org.geektext.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -10,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-public class UserRepository implements UserDao {
-    public UserRepository() {}
+public class UserService implements UserRepository {
+    public UserService() {}
 
 
     @Autowired
@@ -32,11 +33,6 @@ public class UserRepository implements UserDao {
                         rs.getString("username")));
     }
 
-    @Override
-    public int getUserIdByUsername(String username) {
-        String str = "SELECT userID FROM users where username = ?";
-        return jdbcTemplate.queryForObject(str, new Object[]{username}, Integer.class);
-    }
     @Override
     public User selectUserByUsername(String username) {
         try{

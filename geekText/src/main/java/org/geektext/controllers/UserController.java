@@ -3,8 +3,8 @@ package org.geektext.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.geektext.service.UserDao;
-import org.geektext.service.UserRepository;
+import org.geektext.repository.UserRepository;
+import org.geektext.service.UserService;
 import org.geektext.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     @Autowired
-    UserDao userRepo;
+    UserRepository userRepo;
 
     @Autowired
-    public UserController(UserRepository userRepo) {
+    public UserController(UserService userRepo) {
         this.userRepo = userRepo;
     }
 
