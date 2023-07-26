@@ -2,31 +2,30 @@ package org.geektext.model;
 import jakarta.persistence.*;
 import java.util.Date;
 @Entity
-@Table(name = "ratedbooks")
-public class RatedBook {
-    public RatedBook(){};
-    public RatedBook(Book book, User user, int bookRating, Date datestamp) {
+@Table(name = "commentedbooks")
+public class CommentedBook {
+    public CommentedBook(){};
+    public CommentedBook(Book book, User user, String comment, Date datestamp) {
 
         this.bookID = book.getId();
         this.userID = user.getId();
         this.id = getId();
-        this.bookRating = bookRating;
+        this.comment = comment;
         this.datestamp = datestamp;
     }
-
-
     @Id
-    @Column (name = "ratingnumber")
+    @Column (name = "commentnumber")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @Column(name = "bookID")
     private long bookID;
 
     @Column(name = "userID")
     private long userID;
 
-    @Column(name = "bookRating")
-    private int bookRating;
+    @Column(name = "Comment")
+    private String comment;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "datestamp")
@@ -35,26 +34,23 @@ public class RatedBook {
     public long getId() {
         return id;
     }
-
-    public long getUserID() {
-        return userID;
-    }
-    public void setUserID(long userID) {
-        this.setUserID(userID);
-    }
-
     public long getBookID() {
         return bookID;
     }
     public void setBookID(long bookID) {
         this.bookID = bookID;
     }
-
-    public int getRating() {
-        return bookRating;
+    public long getUserID() {
+        return userID;
     }
-    public void setRating(int bookRating) {
-        this.bookRating = bookRating;
+    public void setUserID(long userID) {
+        this.setUserID(userID);
+    }
+    public String getComment() {
+        return comment;
+    }
+    public void setComment(String bookComment) {
+        this.comment = comment;
     }
 
     public Date getDatestamp() {
