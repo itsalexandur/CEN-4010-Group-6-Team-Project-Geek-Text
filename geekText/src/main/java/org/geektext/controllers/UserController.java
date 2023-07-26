@@ -1,10 +1,10 @@
-package org.geektext.api;
+package org.geektext.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.geektext.dao.UserDao;
-import org.geektext.dao.UserRepository;
+import org.geektext.service.UserDao;
+import org.geektext.service.UserRepository;
 import org.geektext.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

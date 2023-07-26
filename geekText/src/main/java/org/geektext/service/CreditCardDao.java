@@ -1,7 +1,6 @@
-package org.geektext.dao;
+package org.geektext.service;
 
 import org.geektext.model.CreditCard;
-import org.geektext.model.User;
 
 public interface CreditCardDao {
 

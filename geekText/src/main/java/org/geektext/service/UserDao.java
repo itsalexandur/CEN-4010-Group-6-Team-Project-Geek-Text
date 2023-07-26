@@ -1,4 +1,4 @@
-package org.geektext.dao;
+package org.geektext.service;
 
 import org.geektext.model.User;
 

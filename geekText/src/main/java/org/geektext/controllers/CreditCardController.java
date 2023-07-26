@@ -1,8 +1,8 @@
-package org.geektext.api;
+package org.geektext.controllers;
 
-import org.geektext.dao.CreditCardDao;
-import org.geektext.dao.CreditCardRepository;
-import org.geektext.dao.UserRepository;
+import org.geektext.service.CreditCardDao;
+import org.geektext.service.CreditCardRepository;
+import org.geektext.service.UserRepository;
 import org.geektext.model.CreditCard;
 import org.geektext.model.User;
 import org.springframework.beans.factory.annotation.Autowired;

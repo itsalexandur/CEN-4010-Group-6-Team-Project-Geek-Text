@@ -1,8 +1,7 @@
-package org.geektext.dao;
+package org.geektext.service;
 
 
 import org.geektext.model.CreditCard;
-import org.geektext.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
