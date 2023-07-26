@@ -1,8 +1,8 @@
-package org.geektext.api;
+package org.geektext.controllers;
 
-import org.geektext.dao.CreditCardDao;
-import org.geektext.dao.CreditCardRepository;
-import org.geektext.dao.UserRepository;
+import org.geektext.repository.CreditCardRepository;
+import org.geektext.service.CreditCardService;
+import org.geektext.service.UserService;
 import org.geektext.model.CreditCard;
 import org.geektext.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,21 +15,21 @@ import org.springframework.web.bind.annotation.*;
 public class CreditCardController {
 
    @Autowired
-   CreditCardDao creditCardRepo;
+   CreditCardRepository creditCardRepo;
    @Autowired
-    UserRepository userRepository;
+   UserService userService;
 
     @Autowired
-    public CreditCardController(CreditCardRepository creditCardRepository, UserRepository userRepository){
-        this.userRepository = userRepository;
-        this.creditCardRepo = creditCardRepository;
+    public CreditCardController(CreditCardService creditCardService, UserService userService){
+        this.userService = userService;
+        this.creditCardRepo = creditCardService;
     }
 
     @PostMapping("/{username}/addcreditcard")
     public ResponseEntity<String> insertCreditCard(@PathVariable("username") String username, @RequestBody CreditCard card){
         try{
 
-            User user = userRepository.selectUserByUsername(username);
+            User user = userService.selectUserByUsername(username);
 
             if (user == null){
                 return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
