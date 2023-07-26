@@ -1,6 +1,5 @@
 package org.geektext.controllers;
 import org.geektext.model.RatedBook;
-//import org.geektext.model.SavedBook;
 import org.geektext.services.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +13,11 @@ public class RatingController {
     public String addRatingToBook(@PathVariable("bookID") long bookID, @PathVariable("userID") long userID,@PathVariable("bookRating") int bookRating) {
 
         ratingService.ratedBook(bookID,userID,bookRating);
-        return "[@PostMapping] User: " + userID + " left a rating of " + bookRating + " to bookId: "+bookID;
+        return "[@PostMapping] User ID: " + userID + " left a rating of " + bookRating + " stars to bookId: "+bookID;
 
+    }
+    @GetMapping("/rate/averageRating/{bookID}")
+    public String getAverageRatingForBook(@PathVariable("bookID") long bookID) {
+        return "The average rating for bookID "+bookID+ " is "+ ratingService.calculateAverageRating(bookID);
     }
 }

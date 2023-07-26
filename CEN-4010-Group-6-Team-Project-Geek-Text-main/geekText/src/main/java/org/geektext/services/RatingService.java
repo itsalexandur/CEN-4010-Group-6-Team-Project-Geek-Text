@@ -5,6 +5,7 @@ import org.geektext.repository.RatedBookRepository;
 import org.geektext.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.Date;
 
 import java.util.List;
 @Service
@@ -23,17 +24,30 @@ public class RatingService {
 
         Book rated = bookRepo.findBookById(bookID);
         User userTarget = userRepo.findUserById(userID);
-        int rate = ratedBookRepo.findRatedBooksByUserID(bookRating);
+        //int rate = ratedBookRepo.findRatedBooksByBookID(bookRating);
 
-        RatedBook rateBook = new RatedBook(rated,userTarget,rate);
-        ratedBookRepo.save(rateBook);
+        RatedBook ratedBook = new RatedBook(rated,userTarget,bookRating,new Date());
+        ratedBookRepo.save(ratedBook);
 
     }
-    public List<RatedBook> ShowBookRatings(long bookRating) {
-        // Returns all books in users shopping cart
-
-        List<RatedBook> ratedBooks =  ratedBookRepo.findRatedBooksByUserID(bookRating);
+    public List<RatedBook> ShowBookRatings(long bookID) {
+        List<RatedBook> ratedBooks =  ratedBookRepo.findRatedBooksByBookID(bookID);
 
         return ratedBooks;
+    }
+
+    public double calculateAverageRating(long bookId) {
+        List<RatedBook> ratedBooks = ratedBookRepo.findRatedBooksByBookID(bookId);
+
+        if (ratedBooks.isEmpty()) {
+            return 0.0;
+        }
+
+        double totalRating = 0;
+        for (RatedBook ratedBook : ratedBooks) {
+            totalRating += ratedBook.getRating();
+        }
+
+        return totalRating / ratedBooks.size();
     }
 }
