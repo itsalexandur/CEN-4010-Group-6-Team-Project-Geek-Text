@@ -1,19 +1,17 @@
+
 package org.geektext.repository;
 
 import org.geektext.model.User;
-
-import java.util.List;
-
-public interface UserRepository {
-
-    void insertUser(User user);
-
-    List<User> selectAllUsers();
-
-    User selectUserByUsername(String username);
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.support.JpaRepositoryImplementation;
+import org.springframework.stereotype.Repository;
 
 
-    int deleteUserById(int id);
+@Repository
+public interface UserRepository extends JpaRepositoryImplementation<User, Long> {
+    // all crud database methods
 
-    int updateUser(String username, User user);
+      User findUserById(long userID);
+     //User findUserBy(String firstname, String lastname);
+
 }
