@@ -21,7 +21,7 @@ public class UserService implements UserRepository {
 
     public void insertUser(User user){
         jdbcTemplate.update("INSERT INTO users (userID, address, fullname, password, username) VALUES (?,?,?,?,?)",
-                user.getId(), user.getAddress(), user.getFullname(), user.getPassword(), user.getUsername());
+                user.getTitle(), user.getAddress(), user.getFullname(), user.getPassword(), user.getUsername());
     }
     public List<User> selectAllUsers(){
 

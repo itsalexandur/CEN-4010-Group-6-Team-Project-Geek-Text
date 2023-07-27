@@ -6,6 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 
+
 @Repository
 public interface BookRepository extends JpaRepositoryImplementation<Book, Long> {
     // all crud database methods

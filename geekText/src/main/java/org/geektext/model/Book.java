@@ -9,17 +9,17 @@ public class Book {
 
     public Book() {} // default constructor
 
-    public Book(String title, String author, String genre, String description, int yearPublished,int copiesSold, int isbn, double price) {
-
-        this.setTitle(title);
-        this.setAuthor(author);
-        this.setGenre(genre);
-        this.setDescription(description);
-        this.setYearPublished(yearPublished);
-        this.setCopiesSold(copiesSold);
-        this.setIsbn(isbn);
-        this.setPrice(price);
-
+    public Book(String title, String author, String genre, String description, String publisher, int yearPublished, int copiesSold, int isbn, double price, int rating) {
+        this.title = title;
+        this.author = author;
+        this.genre = genre;
+        this.description = description;
+        this.publisher = publisher;
+        this.yearPublished = yearPublished;
+        this.copiesSold = copiesSold;
+        this.isbn = isbn;
+        this.price = price;
+        this.rating = rating;
     }
 
 
@@ -54,6 +54,9 @@ public class Book {
 
     @Column(name = "price")
     private double price;
+
+    @Column(name = "publisher")
+    private String Publisher;
 
 
 

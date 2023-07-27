@@ -34,7 +34,8 @@ public class ShoppingCartService {
 
 
 
-        Book addedBook = bookRepo.findBookById(bookID);
+        Book addedBook = bookRepo.
+                findBookById(bookID);
         if (addedBook == null) {
             return 0;
         }
